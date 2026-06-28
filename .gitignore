@@ -1,3 +1,70 @@
-# Environment files
+# ==========================================
+# ENVIRONMENT — không bao giờ commit
+# ==========================================
 **/.env
 **/.env.*
+!**/.env.example        # giữ lại file example
+
+# ==========================================
+# PYTHON / BACKEND
+# ==========================================
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MyPy
+.mypy_cache/
+
+# ==========================================
+# NODE / REACT FRONTEND
+# ==========================================
+node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+
+# ==========================================
+# IDE & EDITOR
+# ==========================================
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# OS
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# DATABASE
+# ==========================================
+*.sql.bak
+dump.sql
+*.sqlite3
+
+# ==========================================
+# LOGS
+# ==========================================
+*.log
+logs/
