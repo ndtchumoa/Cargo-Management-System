@@ -98,14 +98,14 @@ Cargo-Management-System/
 
 | Công cụ | Phiên bản |
 |---|---|
-| Python | 3.11+ |
+| Python | 3.13+ |
 | Node.js | 18+ |
 | MySQL | 8.0+ |
 
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/<your-username>/Cargo-Management-System.git
+git clone https://github.com/ndtchumoa/Cargo-Management-System.git
 cd Cargo-Management-System
 ```
 
