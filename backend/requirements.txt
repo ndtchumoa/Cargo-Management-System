@@ -1,26 +1,26 @@
 # Web framework
-fastapi==0.111.0
-uvicorn[standard]==0.29.0
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
 
 # Database
-sqlalchemy==2.0.30
-pymysql==1.1.0
-cryptography==42.0.7        # required by pymysql for auth
+sqlalchemy==2.0.36
+pymysql==1.1.1
+cryptography==43.0.3        # required by pymysql for auth
 
 # Environment
 python-dotenv==1.0.1
 
-# Validation
-pydantic==2.7.1
-pydantic-settings==2.2.1
+# Validation — pydantic 2.10+ hỗ trợ Python 3.14
+pydantic==2.10.3
+pydantic-settings==2.7.0
 
 # Route optimization
-networkx==3.3
+networkx==3.4.2
 
 # Authentication (Phase 4)
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 
 # Testing
-pytest==8.2.0
-httpx==0.27.0               # async test client cho FastAPI
+pytest==8.3.4
+httpx==0.28.0               # async test client cho FastAPI
