@@ -3,12 +3,12 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    # --- Database ---
-    DB_HOST: str = "localhost"
+    # --- Database (KHÔNG hardcode sensitive data) ---
+    DB_HOST: str
     DB_PORT: int = 3306
-    DB_USER: str = "root"
-    DB_PASSWORD: str = ""
-    DB_NAME: str = "cargo_db"
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_NAME: str
 
     # --- App ---
     APP_HOST: str = "0.0.0.0"
@@ -16,12 +16,13 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     # --- Security ---
-    SECRET_KEY: str = "change-this-in-production"
+    SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
     # --- CORS ---
     ALLOWED_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
 
+    # --- DATABASE URL ---
     @property
     def DATABASE_URL(self) -> str:
         return (
