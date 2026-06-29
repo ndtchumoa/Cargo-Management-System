@@ -1,22 +1,24 @@
 # ==========================================
-# ENVIRONMENT — không bao giờ commit
+# ENVIRONMENT — NEVER COMMIT
 # ==========================================
-**/.env
-**/.env.*
-!**/.env.example        # giữ lại file example
+.env
+.env.*
+!.env.example
 
 # ==========================================
 # PYTHON / BACKEND
 # ==========================================
-# Virtual environment
+# Virtual environments
 venv/
 .venv/
 env/
+ENV/
 
-# Bytecode
+# Python cache
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyd
 
 # Distribution / packaging
 *.egg-info/
@@ -24,24 +26,27 @@ dist/
 build/
 *.egg
 
-# Testing & coverage
+# pytest / testing
 .pytest_cache/
 .coverage
 htmlcov/
 
-# MyPy
+# mypy / type checker
 .mypy_cache/
+.dmypy.json
 
 # ==========================================
-# NODE / REACT FRONTEND
+# NODE / FRONTEND (React/Vite)
 # ==========================================
 node_modules/
+dist/
+build/
+.vite/
 frontend/dist/
 frontend/build/
-frontend/.vite/
 
 # ==========================================
-# IDE & EDITOR
+# IDE / EDITORS
 # ==========================================
 .vscode/
 .idea/
@@ -50,7 +55,7 @@ frontend/.vite/
 *.sublime-workspace
 
 # ==========================================
-# OS
+# OS FILES
 # ==========================================
 .DS_Store
 Thumbs.db
@@ -59,12 +64,22 @@ desktop.ini
 # ==========================================
 # DATABASE
 # ==========================================
-*.sql.bak
-dump.sql
 *.sqlite3
+*.db
+*.sql
+*.sql.bak
 
 # ==========================================
 # LOGS
 # ==========================================
 *.log
 logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# OPTIONAL (Windows / Python extras)
+# ==========================================
+*.manifest
+*.spec
