@@ -3,7 +3,7 @@
 A full-stack logistics cargo management system with REST API, analytics dashboard, and route optimization.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.13+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.111+-009688?logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react&logoColor=black)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
@@ -208,11 +208,11 @@ POST /api/optimize/route
 
 ---
 
-## 👥 Tác giả
+## 👥 Project Evolution
 
-Developed as part of **MI3090 – Cơ sở dữ liệu**, Nhóm 60.
+**Origin:** Dự án được khởi đầu từ bài tập lớn nhóm trong khuôn khổ môn học **MI3090 – Cơ sở dữ liệu** (Nhóm 60).
 
----
+**Current Status:** Được mở rộng, tái cấu trúc và phát triển độc lập bởi **ndtchumoa** thành một dự án Cá nhân Full-stack. Dự án đã được nâng cấp toàn diện từ việc tối ưu hóa Cơ sở dữ liệu MySQL, xây dựng hệ thống REST API với FastAPI, cho đến hoàn thiện giao diện Analytics Dashboard bằng React và tích hợp thuật toán tối ưu lộ trình.
 
 ## 📄 License
 
