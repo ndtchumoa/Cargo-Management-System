@@ -27,10 +27,19 @@ def optimize_route(body: OptimizeRequest, db: Session = Depends(get_db)):
     Trả về danh sách các node trên đường đi, tổng km,
     COD ước tính và danh sách xe phù hợp còn khả dụng.
     """
+    from_dtc = body.from_dtc.strip()
+    to_dtc   = body.to_dtc.strip()
+
+    if from_dtc == to_dtc:
+        raise HTTPException(
+            status_code=400,
+            detail="Điểm xuất phát và điểm đích không được trùng nhau",
+        )
+
     try:
         result = find_optimal_route(
-            from_dtc  = body.from_dtc.strip(),
-            to_dtc    = body.to_dtc.strip(),
+            from_dtc  = from_dtc,
+            to_dtc    = to_dtc,
             weight_kg = body.weight_kg,
             db        = db,
         )

@@ -3,12 +3,25 @@ Cargo Management System — FastAPI Backend
 Entry point: uvicorn app.main:app --reload
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import check_connection
 from app.routers import orders, invoices, assignments, analytics, optimize
+
+
+# ── Lifespan (thay cho on_event đã deprecated) ─
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    ok = check_connection()
+    status = "✅ Kết nối thành công" if ok else "❌ Không thể kết nối"
+    print(f"[DB] {status} → {settings.DB_NAME}@{settings.DB_HOST}:{settings.DB_PORT}")
+    yield
+    # (Không cần dọn dẹp gì khi shutdown)
+
 
 # ── App instance ─────────────────────────────
 
@@ -18,6 +31,7 @@ app = FastAPI(
     version     = "1.0.0",
     docs_url    = "/docs",
     redoc_url   = "/redoc",
+    lifespan    = lifespan,
 )
 
 # ── CORS ─────────────────────────────────────
@@ -38,14 +52,7 @@ app.include_router(assignments.router)
 app.include_router(analytics.router)
 app.include_router(optimize.router)
 
-# ── Startup / Health ─────────────────────────
-
-@app.on_event("startup")
-async def startup_event():
-    ok = check_connection()
-    status = "✅ Kết nối thành công" if ok else "❌ Không thể kết nối"
-    print(f"[DB] {status} → {settings.DB_NAME}@{settings.DB_HOST}:{settings.DB_PORT}")
-
+# ── Health ───────────────────────────────────
 
 @app.get("/", tags=["Health"])
 def root():

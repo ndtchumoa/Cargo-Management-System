@@ -5,7 +5,7 @@ Các endpoint phân tích doanh thu, vận hành.
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from sqlalchemy import func, case, text
+from sqlalchemy import func, case, text, extract
 
 from app.database import get_db
 from app.models.all import DonHang, HoaDon, LoTrinh, PhuongTien, KhachHang
@@ -18,11 +18,15 @@ router = APIRouter(prefix="/api/analytics", tags=["Analytics"])
 def revenue_by_month(db: Session = Depends(get_db)):
     """
     Tổng COD + giá trị hàng của các đơn đã có hóa đơn, nhóm theo tháng.
+    Dùng extract() — SQLAlchemy tự dịch sang hàm đúng dialect (MySQL/SQLite).
     """
+    thang_expr = extract("month", HoaDon.THOI_GIAN_TAO).label("thang")
+    nam_expr   = extract("year",  HoaDon.THOI_GIAN_TAO).label("nam")
+
     rows = (
         db.query(
-            func.month(HoaDon.THOI_GIAN_TAO).label("thang"),
-            func.year(HoaDon.THOI_GIAN_TAO).label("nam"),
+            thang_expr,
+            nam_expr,
             func.count(DonHang.ID_DH).label("so_don"),
             func.sum(DonHang.THANH_TIEN).label("tong_gia_tri_hang"),
         )
@@ -34,21 +38,24 @@ def revenue_by_month(db: Session = Depends(get_db)):
 
     result = []
     for r in rows:
+        thang = int(r.thang)
+        nam   = int(r.nam)
+
         # Lấy các đơn trong tháng đó để tính COD
         don_hangs = (
             db.query(DonHang)
             .join(HoaDon, DonHang.ID_HD == HoaDon.ID_HD)
             .filter(
-                func.year(HoaDon.THOI_GIAN_TAO)  == r.nam,
-                func.month(HoaDon.THOI_GIAN_TAO) == r.thang,
+                extract("year",  HoaDon.THOI_GIAN_TAO) == nam,
+                extract("month", HoaDon.THOI_GIAN_TAO) == thang,
             )
             .all()
         )
         tong_cod = sum(float(tinh_cod(dh.KHOI_LUONG, dh.QUANG_DUONG)) for dh in don_hangs)
 
         result.append({
-            "nam":               r.nam,
-            "thang":             r.thang,
+            "nam":               nam,
+            "thang":             thang,
             "so_don":            r.so_don,
             "tong_cod":          tong_cod,
             "tong_gia_tri_hang": float(r.tong_gia_tri_hang or 0),
