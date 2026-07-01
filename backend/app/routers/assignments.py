@@ -13,6 +13,7 @@ from sqlalchemy.exc import OperationalError
 
 from app.database import get_db
 from app.models.all import PhanCong, ChangDuong, NhanVienGiaoHang, PhuongTien
+from app.dependencies import require_role
 from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/api/assignments", tags=["Assignments"])
@@ -76,7 +77,7 @@ def list_assignments(db: Session = Depends(get_db)):
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, summary="Tạo phân công mới")
-def create_assignment(body: PhanCongCreate, db: Session = Depends(get_db)):
+def create_assignment(body: PhanCongCreate, db: Session = Depends(get_db), _: dict = Depends(require_role("quan_ly"))):
     # Validate FK tồn tại
     if not db.get(ChangDuong,       body.ID_CD):
         raise HTTPException(400, f"Chặng đường '{body.ID_CD}' không tồn tại")
