@@ -14,7 +14,7 @@ from sqlalchemy import func
 from app.database import get_db
 from app.models.all import HoaDon, DonHang
 from app.services.cod import tinh_cod
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 router = APIRouter(prefix="/api/invoices", tags=["Invoices"])
 
@@ -35,9 +35,7 @@ class HoaDonResponse(BaseModel):
     tong_gia_tri_hang:    float
     tong_tien_phai_thu:   float
 
-    class Config:
-        from_attributes = True
-
+    model_config = ConfigDict(from_attributes=True)
 
 # ── Helper ────────────────────────────────────
 

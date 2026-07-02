@@ -14,7 +14,7 @@ from sqlalchemy.exc import OperationalError
 from app.database import get_db
 from app.models.all import PhanCong, ChangDuong, NhanVienGiaoHang, PhuongTien
 from app.dependencies import require_role
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 router = APIRouter(prefix="/api/assignments", tags=["Assignments"])
 
@@ -29,18 +29,17 @@ class PhanCongCreate(BaseModel):
 
 
 class PhanCongResponse(BaseModel):
-    ID_PC:       str
-    CA_LAM:      str
-    ID_CD:       str
-    ten_chang:   str
-    ID_NV:       str
-    ten_nv:      str
-    BIEN_SO:     str
-    loai_pt:     str
+    ID_PC: str
+    CA_LAM: str
+    ID_CD: str
+    ten_chang: str
+    ID_NV: str
+    ten_nv: str
+    BIEN_SO: str
+    loai_pt: str
     trang_thai_pt: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ── Helper ────────────────────────────────────

@@ -7,7 +7,7 @@ Pydantic schemas cho DON_HANG.
 from __future__ import annotations
 from decimal import Decimal
 from typing import Optional, Literal
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, ConfigDict
 
 
 TrangThaiDonHang = Literal[
@@ -53,8 +53,7 @@ class DonHangBase(BaseModel):
     ID_LT:       str
     ID_HD:       Optional[str]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class DonHangDetail(DonHangBase):
@@ -66,7 +65,6 @@ class DonHangDetail(DonHangBase):
 
 
 class DonHangListItem(BaseModel):
-    """Item trong danh sách đơn hàng."""
     ID_DH:          str
     TRANG_THAI:     str
     KHOI_LUONG:     Decimal
@@ -76,8 +74,7 @@ class DonHangListItem(BaseModel):
     ten_lo_trinh:   str
     cod:            Optional[Decimal] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class DonHangCreated(BaseModel):
